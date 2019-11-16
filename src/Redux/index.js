@@ -1,7 +1,7 @@
-import { combineReducers, createStore } from 'redux'
-import { persistReducer } from 'redux-persist'
+import { combineReducers } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
 
-import CreateStore from './CreateStore'
+import configStore from './CreateStore'
 import ReduxPersist from '../Config/redux-persist'
 
 /** Reducers */
@@ -17,7 +17,11 @@ export default () => {
     finalReducers = persistReducer(persistConfig, reducers)
   }
 
-  let { store } = CreateStore(finalReducers)
+  let { store } = configStore(finalReducers)
+  let persistor = persistStore(store)
 
-  return store
+  return {
+    store,
+    persistor,
+  }
 }
