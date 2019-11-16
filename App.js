@@ -1,18 +1,19 @@
 import React from 'react';
+import { Provider } from 'react-redux'
 import { StyleSheet, Text, View, Button } from 'react-native';
+
+import createStore from './src/Redux'
+
+const store = createStore()
 
 export default function App() {
 
-  console.log('Loggando...')
-
   return (
-    <View style={styles.container}>
-      <Text>Testando o text</Text>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
-      <Button
-        title="Botão"
-      />
-    </View>
+    <Provider store={store}>
+      <View>
+        <Text>Com Redux</Text>
+      </View>
+    </Provider>
   );
 }
 
