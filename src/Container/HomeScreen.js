@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import Modal, { ModalContent } from 'react-native-modals'
+import Modal, { ModalContent, ModalFooter, ModalButton } from 'react-native-modals'
 
 import TaskActions from '../Redux/TaskRedux'
 import styles from './Styles/HomeScreenStyles'
 
-import { HeaderButtonAddTask, TaskList } from '../Components'
+import { HeaderButtonAddTask, TaskList, TaskForm } from '../Components'
 
 class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -24,16 +24,19 @@ class HomeScreen extends Component {
     }
   } 
   
-  addTask() {
-    console.log('Adicionar task')
-    this.props.setTask({
-      id: new Date().getTime(),
-      name: 'Tarefa 1',
-    })
-  }
+  
 
   componentDidMount() {
     this.props.navigation.setParams({ addTaskFunc: this.addTask })
+  }
+
+  componentWillUnmount() {
+    this.props.navigation.setParams({ addTaskFunc: null })
+  }
+
+  addTask() {
+    console.log('Adicionar task')
+    this.setState({ modalAddTaskVisible: true })
   }
 
   render() {
@@ -44,6 +47,31 @@ class HomeScreen extends Component {
         <TaskList 
           tasks={tasks}
         />
+        <Modal
+          // height={0.9}
+          width={0.9}
+          style={styles.modal}
+          visible={this.state.modalAddTaskVisible}
+          onTouchOutside={() => this.setState({modalAddTaskVisible: false })}
+          footer={
+            <ModalFooter>
+              <ModalButton
+                text="Cancelar"
+                onPress={() => { this.setState({ modalAddTaskVisible: false }) }}
+              />
+              <ModalButton
+                text="Cadastrar"
+                onPress={() => {}}
+              />
+            </ModalFooter>
+          }
+        >
+          <ModalContent>
+            <TaskForm 
+
+            />
+          </ModalContent>
+        </Modal>
       </View>
     )
   }
