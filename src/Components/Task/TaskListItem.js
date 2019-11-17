@@ -30,6 +30,7 @@ import styles from './Styles/TaskListItemStyle'
         </View>
         <View style={styles.detailContainer}>
           <TouchableOpacity style={styles.detailBtn} onPress={() => this.goToDetail()}>
+            <Text style={styles.detailText}>Detalhes</Text>
             <AntDesign name="right" style={styles.detailIcon} />
           </TouchableOpacity>
         </View>

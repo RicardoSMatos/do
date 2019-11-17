@@ -17,11 +17,12 @@ export default ScaledSheet.create({
     width: '90%',
     height: '90%',
     borderWidth: 1,
-    borderColor: Colors.default.textColor,
+    borderColor: '#FFF',
     borderRadius: 50,
+    backgroundColor: '#48c75d'
   },
   icon: {
-    color: Colors.default.textColor,
+    color: '#FFF',
     fontSize: '30@ms',
   }
 });

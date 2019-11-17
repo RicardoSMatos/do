@@ -12,7 +12,15 @@ import { HeaderButtonAddTask, TaskList, TaskForm } from '../Components'
 class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Bem vindo',
-    headerRight: <HeaderButtonAddTask event={navigation.getParam('addTaskFunc')}/>
+    headerRight: <HeaderButtonAddTask event={navigation.getParam('addTaskFunc')}/>,
+    headerStyle: {
+      backgroundColor: '#db3c39',
+      color: '#FFF'
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: '200',
+    },
   })
 
   constructor(props) {

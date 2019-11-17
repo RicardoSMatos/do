@@ -4,7 +4,7 @@ import Colors from '../../Themes/Colors';
 export default ScaledSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: Colors.backScreen
+    // backgroundColor: Colors.backScreen
   },
   modal: {
 
