@@ -6,10 +6,10 @@ import { moderateScale } from 'react-native-size-matters'
 
 import styles from './Styles/HeaderButtonAddTaskStyle'
 
-const HeaderButtonAddTask = ({  }) => {
+const HeaderButtonAddTask = ({ event }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity onPress={() => event()} style={styles.btn}>
           <Ionicons name="ios-add" style={styles.icon} />
       </TouchableOpacity>
     </View>
@@ -17,7 +17,7 @@ const HeaderButtonAddTask = ({  }) => {
 }
 
 HeaderButtonAddTask.propTypes = {
-  event: PropTypes.func.isRequired,
+  event: PropTypes.func,
 }
 
 export default HeaderButtonAddTask

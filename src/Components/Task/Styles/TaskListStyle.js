@@ -5,6 +5,6 @@ export default ScaledSheet.create({
     paddingHorizontal: '10@ms',
   },
   list: {
-    
+    paddingHorizontal: '14@ms',
   }
 });

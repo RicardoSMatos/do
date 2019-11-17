@@ -10,9 +10,9 @@ export class TaskList extends Component {
     tasks: PropTypes.array.isRequired,
   }
 
-  renderItem = (item) => {
+  renderItem = ({ item }) => {
     return (
-      <TaskListItem />
+      <TaskListItem task={item} />
     )
   }
 
@@ -23,7 +23,7 @@ export class TaskList extends Component {
         <FlatList
           style={styles.list}
           data={tasks}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={this.renderItem}
         />
       </View>
