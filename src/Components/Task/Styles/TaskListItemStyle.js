@@ -28,15 +28,15 @@ export default ScaledSheet.create({
     })
   },
   checkContainer: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   checkButton: {
     height: '100%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#678'
   },
   checkIcon: {
     color: Colors.checkColor,
@@ -44,10 +44,26 @@ export default ScaledSheet.create({
   },
   nameContainer: {
     flex: 8,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   name: {
     textAlign: 'center',
     fontSize: '15@ms',
-  }
+  },
+  detailContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  detailBtn: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  detailIcon: {
+    color: Colors.checkColor,
+    fontSize: '22@ms',
+  },
 });

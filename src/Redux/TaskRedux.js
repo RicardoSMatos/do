@@ -13,7 +13,7 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  tasks: 'Ricardo'
+  tasks: []
 })
 
 /* ------------- Selectors ------------- */
@@ -26,10 +26,11 @@ export const GithubSelectors = {
 
 export const saveTask = (state, { task }) => {
 
-  // const tempTasks = Immutable.asMutable(state.task.tasks);
-  // tempTasks.push(task);
+  const tempTasks = Immutable.asMutable(state.tasks);
+  console.log({ tempTasks })
+  tempTasks.push(task);
 
-  return state.merge({ tasks: task });
+  return { tasks: tempTasks };
 }
   
 
