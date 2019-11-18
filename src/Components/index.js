@@ -1,5 +1,6 @@
 /** COMMONS COMPONENTS */
 export { default as HeaderButtonAddTask } from './Commons/HeaderButtonAddTask';
+export { default as EmptyList } from './Commons/EmptyList';
 
 /** TASK COMPONENTS */
 export { default as TaskList } from './Task/TaskList';

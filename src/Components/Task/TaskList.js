@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import TaskListItem from './TaskListItem'
 import styles from './Styles/TaskListStyle'
+import { EmptyList } from '../../Components'
 
 export class TaskList extends Component {
   static propTypes = {
@@ -26,6 +27,7 @@ export class TaskList extends Component {
           data={tasks}
           keyExtractor={(item) => item.id.toString()}
           renderItem={this.renderItem}
+          ListEmptyComponent={<EmptyList />}
         />
       </View>
     )
