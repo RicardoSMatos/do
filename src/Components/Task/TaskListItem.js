@@ -43,7 +43,7 @@ import styles from './Styles/TaskListItemStyle'
     const { finished } = task
 
     return (
-      <Animated.View style={[styles.container, { backgroundColor: !this.state.finished ? '#309ec9' : '#48c75d' }]}>
+      <View style={[styles.container, { backgroundColor: !this.state.finished ? '#309ec9' : '#48c75d' }]}>
         {
           !finished ? (
             <View style={styles.checkContainer}>
@@ -63,7 +63,7 @@ import styles from './Styles/TaskListItemStyle'
             <AntDesign name="right" style={styles.detailIcon} />
           </TouchableOpacity>
         </View>
-      </Animated.View>
+      </View>
     )
   }
 }

@@ -59,10 +59,14 @@ class HomeScreen extends Component {
   render() {
     const { tasks } = this.props
 
+    const filteredTasks = tasks.sort((a, b) => {
+      return a - b
+    })
+
     return (
       <View style={styles.screenContainer}>
         <TaskList 
-          tasks={tasks}
+          tasks={filteredTasks}
           navigation={this.props.navigation}
         />
         <Modal

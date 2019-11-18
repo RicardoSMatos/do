@@ -31,12 +31,19 @@ class TaskDetailScreen extends Component {
   deleteTask() {
     const { deleteTask, navigation } = this.props
 
+    
+
     deleteTask(this.state.task.id)
     navigation.goBack()
   }
 
   completeTask() {
     const { finishTask } = this.props
+
+    if(!this.state.enableComplete) {
+      this.setState({ enableComplete: true })
+    }
+
     finishTask(this.state.task.id)
   }
 
