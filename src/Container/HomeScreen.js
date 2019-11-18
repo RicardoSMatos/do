@@ -63,6 +63,7 @@ class HomeScreen extends Component {
       <View style={styles.screenContainer}>
         <TaskList 
           tasks={tasks}
+          navigation={this.props.navigation}
         />
         <Modal
           width={0.9}
@@ -80,6 +81,7 @@ class HomeScreen extends Component {
         >
           <ModalContent>
             <TaskForm
+              
               saveTask={this.addTask}
             />
           </ModalContent>

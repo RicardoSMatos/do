@@ -11,7 +11,7 @@ export default ScaledSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#cfcfcf',
-    backgroundColor: '#309ec9',
+    
     ...Platform.select({
       ios: {
         shadowColor: "#000",

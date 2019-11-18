@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   saveTask: ['task'],
   deleteTask: ['id'],
-  // finishTask: ['id']
+  finishTask: ['id']
 })
 
 export const TasksTypes = Types
@@ -35,8 +35,6 @@ export const saveTask = (state, { task }) => {
 }
   
 export const deleteTask = (state, { id }) => {
-  console.log('deletando...')
-
   let tempTasks = Immutable.asMutable(state.tasks)
   let _index = null;
   tempTasks.forEach((task, index) => {
@@ -45,9 +43,19 @@ export const deleteTask = (state, { id }) => {
     }
   })
 
-  console.log({ _index })
-
   tempTasks.splice(_index, 1)
+
+  return { tasks: tempTasks }
+}
+
+export const finishTask = (state, { id }) => {
+  let tempTasks = Immutable.asMutable(state.tasks)
+  
+  tempTasks.forEach((task, index) => {
+    if(task.id === id) {
+      task.finished = true
+    }
+  })
 
   return { tasks: tempTasks }
 }
@@ -58,4 +66,5 @@ export const deleteTask = (state, { id }) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SAVE_TASK]: saveTask,
   [Types.DELETE_TASK]: deleteTask,
+  [Types.FINISH_TASK]: finishTask,
 })

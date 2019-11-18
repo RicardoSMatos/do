@@ -23,7 +23,8 @@ class TaskDetailScreen extends Component {
     super(props)
 
     this.state = {
-      task: props.navigation.getParam('task')
+      task: props.navigation.getParam('task'),
+      enableComplete: props.navigation.getParam('task').finished,
     }
   }
 
@@ -32,6 +33,11 @@ class TaskDetailScreen extends Component {
 
     deleteTask(this.state.task.id)
     navigation.goBack()
+  }
+
+  completeTask() {
+    const { finishTask } = this.props
+    finishTask(this.state.task.id)
   }
 
   render() {
@@ -52,6 +58,8 @@ class TaskDetailScreen extends Component {
             <Button 
               title="Concluir Tarefa"
               color="#48c75d"
+              disabled={this.state.enableComplete}
+              onPress={() => { this.completeTask() }}
             />
           </View>
           <View style={styles.btnAction}>
@@ -72,7 +80,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteTask: (id) => dispatch(TaskActions.deleteTask(id))
+  deleteTask: (id) => dispatch(TaskActions.deleteTask(id)),
+  finishTask: (id) => dispatch(TaskActions.finishTask(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailScreen)

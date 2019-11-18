@@ -8,11 +8,12 @@ import styles from './Styles/TaskListStyle'
 export class TaskList extends Component {
   static propTypes = {
     tasks: PropTypes.array.isRequired,
+    navigation: PropTypes.object.isRequired,
   }
 
   renderItem = ({ item }) => {
     return (
-      <TaskListItem task={item} />
+      <TaskListItem task={item} navigation={this.props.navigation} />
     )
   }
 
