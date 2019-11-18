@@ -8,7 +8,7 @@ import { showMessage } from 'react-native-flash-message'
 const { Types, Creators } = createActions({
   cadastrar: ['email', 'senha'],
   login: ['email', 'senha'],
-  finishTask: ['id']
+  logout: null
 })
 
 export const TasksTypes = Types
@@ -33,21 +33,25 @@ export const GithubSelectors = {
 
 export const cadastrar = (state, { email, senha }) => {
 
-  return { email, senha };
+  return { ...state, email, senha };
 }
 
 export const login = (state, { email, senha }) => {
-  if(!email) {
+  if(!state.email) {
 
-    return { error: 'Não ha usuários cadastrados. Cadastre seus dados e tente novamente'}
+    return { ...state, error: 'Não ha usuários cadastrados. Cadastre seus dados e tente novamente'}
   }
   
   if(state.email !== email || state.senha !== senha) {
 
-    return { error: 'Dados de acesso errados. Tente novamente'}
+    return { ...state, error: 'Dados de acesso errados. Tente novamente'}
   } else {
-    return { logged: true, error: '' }
+    return { ...state, logged: true, error: '' }
   }
+}
+
+export const logout = (state) => {
+  return { ...state, logged: false }
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -55,5 +59,5 @@ export const login = (state, { email, senha }) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CADASTRAR]: cadastrar,
   [Types.LOGIN]: login,
-  // [Types.FINISH_TASK]: finishTask,
+  [Types.LOGOUT]: logout,
 })

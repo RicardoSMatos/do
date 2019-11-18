@@ -1,27 +1,30 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 import Modal, { ModalContent, ModalFooter, ModalButton } from 'react-native-modals'
 import { showMessage } from 'react-native-flash-message'
 
 import TaskActions from '../Redux/TaskRedux'
+import AuthActions from '../Redux/AuthRedux'
 import styles from './Styles/HomeScreenStyles'
 
 import { HeaderButtonAddTask, TaskList, TaskForm, LoginForm } from '../Components'
 
 class HomeScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Bem vindo',
-    headerRight: <HeaderButtonAddTask event={navigation.getParam('addTaskFunc')}/>,
-    headerStyle: {
-      backgroundColor: '#db3c39',
-      color: '#FFF'
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: '200',
-    },
-  })
+  static navigationOptions = ({ navigation }) => {
+    const logged = navigation.getParam('logged')
+    return {title: 'Bem vindo',
+      headerRight: logged ? <HeaderButtonAddTask event={navigation.getParam('addTaskFunc')}/> : null,
+      headerStyle: {
+        backgroundColor: '#db3c39',
+        color: '#FFF'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: '200',
+      },
+    }
+  }
 
   constructor(props) {
     super(props)
@@ -36,6 +39,13 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ addTaskFunc: this.openTaskForm })
+    this.props.navigation.setParams({ logged: this.props.logged })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.logged !== this.props.logged) {
+      this.props.navigation.setParams({ logged: nextProps.logged })
+    }
   }
 
   componentWillUnmount() {
@@ -56,49 +66,55 @@ class HomeScreen extends Component {
     })
   }
 
+  componentWillUnmount() {
+    this.props.logout()
+  }
+
   render() {
     const { tasks, logged } = this.props
 
-    const filteredTasks = tasks.sort((a, b) => {
-      return a - b
-    })
-
-    return (
-      <View>
-        {
-          logged ? 
-            (<View style={styles.screenContainer}>
-              <TaskList 
-                tasks={filteredTasks}
-                navigation={this.props.navigation}
+    if(logged) {
+      return (
+        <View style={styles.screenContainer}>
+          <TaskList 
+            tasks={tasks}
+            navigation={this.props.navigation}
+          />
+          <Button 
+            color="#db3c39"
+            title="Sair"
+            onPress={() => this.props.logout()}
+          />
+          <Modal
+            width={0.9}
+            style={styles.modal}
+            visible={this.state.modalAddTaskVisible}
+            onTouchOutside={() => this.setState({modalAddTaskVisible: false })}
+            footer={
+              <ModalFooter>
+                <ModalButton
+                  text="Cancelar"
+                  onPress={() => { this.setState({ modalAddTaskVisible: false }) }}
+                />
+              </ModalFooter>
+            }
+          >
+            <ModalContent>
+              <TaskForm
+                
+                saveTask={this.addTask}
               />
-              <Modal
-                width={0.9}
-                style={styles.modal}
-                visible={this.state.modalAddTaskVisible}
-                onTouchOutside={() => this.setState({modalAddTaskVisible: false })}
-                footer={
-                  <ModalFooter>
-                    <ModalButton
-                      text="Cancelar"
-                      onPress={() => { this.setState({ modalAddTaskVisible: false }) }}
-                    />
-                  </ModalFooter>
-                }
-              >
-                <ModalContent>
-                  <TaskForm
-                    
-                    saveTask={this.addTask}
-                  />
-                </ModalContent>
-              </Modal>
-            </View>) : (
-              <LoginForm />
-            )
-          }
-      </View>
-    )
+            </ModalContent>
+          </Modal>
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <LoginForm />
+        </View>
+      )
+    }
   }
 }
 
@@ -109,6 +125,7 @@ const mapStateToProps = ({ task, auth }) => ({
 
 const mapDispathToProps = dispatch => ({
   setTask: (task) => dispatch(TaskActions.saveTask(task)),
+  logout: () => dispatch(AuthActions.logout())
 })
 
 export default connect(mapStateToProps, mapDispathToProps)(HomeScreen);

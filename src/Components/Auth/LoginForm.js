@@ -32,6 +32,13 @@ class LoginForm extends Component {
     clear()
     cadastraUsuario(this.state.email, this.state.senha)
 
+    setTimeout(() => {
+      showMessage({
+        message: 'Usuário cadastrado. Efetue login',
+        type: 'success'
+      })
+    }, 1000)
+
   }
 
   login() {
@@ -47,6 +54,8 @@ class LoginForm extends Component {
     }
 
     login(this.state.email, this.state.senha)
+
+    
   }
 
 
@@ -70,7 +79,7 @@ class LoginForm extends Component {
             onChangeText={(text) => this.setState({ senha: text })}
           />
         </View>
-        <Text style={{ color: 'red' }}>{this.props.error}</Text>
+        <Text style={{ color: 'red', textAlign: 'center' }}>{this.props.error}</Text>
         <View style={styles.actionsContainer}>
           <View style={styles.btn}>
             <Button 
@@ -80,8 +89,9 @@ class LoginForm extends Component {
           </View>
           <View style={styles.btn}>
             <Button 
-              title="Cadastrar como novo usuário"
+              title="Cadastrar dados como novo usuário"
               onPress={() => this.cadastrar()}
+              color="#7a7a7a"
             />
           </View>
         </View>

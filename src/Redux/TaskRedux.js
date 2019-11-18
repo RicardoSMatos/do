@@ -32,7 +32,7 @@ export const saveTask = (state, { task }) => {
   const tempTasks = Immutable.asMutable(state.tasks);
   tempTasks.push(task);
 
-  return { tasks: tempTasks };
+  return { ...state, tasks: tempTasks };
 }
   
 export const deleteTask = (state, { id }) => {
@@ -46,7 +46,7 @@ export const deleteTask = (state, { id }) => {
 
   tempTasks.splice(_index, 1)
 
-  return { tasks: tempTasks }
+  return { ...state, tasks: tempTasks }
 }
 
 export const finishTask = (state, { id }) => {
@@ -58,7 +58,7 @@ export const finishTask = (state, { id }) => {
     }
   })
 
-  return { tasks: tempTasks }
+  return { ...state, tasks: tempTasks }
 }
 
 export const clear = state => ({

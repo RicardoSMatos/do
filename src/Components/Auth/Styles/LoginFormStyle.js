@@ -24,6 +24,6 @@ export default ScaledSheet.create({
     marginHorizontal: '20@ms'
   },
   btn: {
-    marginTop: '5@ms'
+    marginTop: '8@ms'
   }
 })
