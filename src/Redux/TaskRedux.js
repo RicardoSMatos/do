@@ -6,7 +6,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   saveTask: ['task'],
   deleteTask: ['id'],
-  finishTask: ['id']
+  finishTask: ['id'],
+  clear: null
 })
 
 export const TasksTypes = Types
@@ -60,6 +61,9 @@ export const finishTask = (state, { id }) => {
   return { tasks: tempTasks }
 }
 
+export const clear = state => ({
+  tasks: []
+})
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -67,4 +71,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SAVE_TASK]: saveTask,
   [Types.DELETE_TASK]: deleteTask,
   [Types.FINISH_TASK]: finishTask,
+  [Types.CLEAR]: clear
 })

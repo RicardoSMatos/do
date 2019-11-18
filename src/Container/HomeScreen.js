@@ -7,7 +7,7 @@ import { showMessage } from 'react-native-flash-message'
 import TaskActions from '../Redux/TaskRedux'
 import styles from './Styles/HomeScreenStyles'
 
-import { HeaderButtonAddTask, TaskList, TaskForm } from '../Components'
+import { HeaderButtonAddTask, TaskList, TaskForm, LoginForm } from '../Components'
 
 class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -57,46 +57,54 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const { tasks } = this.props
+    const { tasks, logged } = this.props
 
     const filteredTasks = tasks.sort((a, b) => {
       return a - b
     })
 
     return (
-      <View style={styles.screenContainer}>
-        <TaskList 
-          tasks={filteredTasks}
-          navigation={this.props.navigation}
-        />
-        <Modal
-          width={0.9}
-          style={styles.modal}
-          visible={this.state.modalAddTaskVisible}
-          onTouchOutside={() => this.setState({modalAddTaskVisible: false })}
-          footer={
-            <ModalFooter>
-              <ModalButton
-                text="Cancelar"
-                onPress={() => { this.setState({ modalAddTaskVisible: false }) }}
+      <View>
+        {
+          logged ? 
+            (<View style={styles.screenContainer}>
+              <TaskList 
+                tasks={filteredTasks}
+                navigation={this.props.navigation}
               />
-            </ModalFooter>
+              <Modal
+                width={0.9}
+                style={styles.modal}
+                visible={this.state.modalAddTaskVisible}
+                onTouchOutside={() => this.setState({modalAddTaskVisible: false })}
+                footer={
+                  <ModalFooter>
+                    <ModalButton
+                      text="Cancelar"
+                      onPress={() => { this.setState({ modalAddTaskVisible: false }) }}
+                    />
+                  </ModalFooter>
+                }
+              >
+                <ModalContent>
+                  <TaskForm
+                    
+                    saveTask={this.addTask}
+                  />
+                </ModalContent>
+              </Modal>
+            </View>) : (
+              <LoginForm />
+            )
           }
-        >
-          <ModalContent>
-            <TaskForm
-              
-              saveTask={this.addTask}
-            />
-          </ModalContent>
-        </Modal>
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ task }) => ({
+const mapStateToProps = ({ task, auth }) => ({
   tasks: task.tasks,
+  logged: auth.logged,
 })
 
 const mapDispathToProps = dispatch => ({

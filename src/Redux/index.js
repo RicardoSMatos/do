@@ -7,6 +7,7 @@ import ReduxPersist from '../Config/redux-persist'
 /** Reducers */
 export const reducers = combineReducers({
   task: require('./TaskRedux').reducer,
+  auth: require('./AuthRedux').reducer,
 })
 
 export default () => {
